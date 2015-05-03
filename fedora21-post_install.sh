@@ -23,3 +23,7 @@ sudo yum -y install ffmpeg ffmpeg-libs
 
 # DVD playback
 sudo yum -y install libdvdread libdvdnav lsdvd
+
+# addblock for firefox
+wget -O /tmp/adblock.xpi https://addons.mozilla.org/firefox/downloads/latest/1865/addon-1865-latest.xpi
+firefox /tmp/adblock.xpi
