@@ -106,9 +106,9 @@ install "$INST yum-plugin-fastestmirror" "prog to find mirrors fast" "y"
 
 
 
-install "sudo rpm -ivh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-21.noarch.rpm" "rpm-fusion free" "y" 
+install "sudo rpm -ivh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-21.noarch.rpm" "rpm-fusion free (for music and stuff)" "y" 
 RPM=$?
-install "sudo rpm -ivh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-21.noarch.rpm" "rpm-fusion nonfree" "y"
+install "sudo rpm -ivh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-21.noarch.rpm" "rpm-fusion nonfree (for music and stuff as well)" "y"
 
 if [[ $? == 0 || $RPM  == 0 ]]; then
     write $UPDATE
@@ -127,13 +127,13 @@ install "$INST grip cdparanoia" "ripping progs" "y"
 install "$INST phonon-backend-gstreamer gstreamer-plugins-base gstreamer1-libav gstreamer1-plugins-base-tools gstreamer{1,}-{plugin-crystalhd,ffmpeg,plugins-{base,good,ugly,bad{,-free,-nonfree,-freeworld,-extras}}} libmpg123 lame-libs" "gstreamer, for watching movies and hearing music" "y"
 
 # FFMpeg
-install "$INST ffmpeg ffmpeg-libs" "ffmpeg" "y"
+install "$INST ffmpeg ffmpeg-libs" "ffmpeg (converting media files)" "y"
 
 # DVD playback
 install "$INST libdvdread libdvdnav lsdvd libdvdcss" "codecs for DVD" "y"
 
 #zsh shell and grml config (which is kinda nice)
-install "$INST zsh" "zsh and grml config" "y"
+install "$INST zsh" "zsh (terminal) and grml config (cool)" "y"
 
 if [[ $? == 0 ]]; then
     cat >> $FILE <<HERE
@@ -225,7 +225,7 @@ install "$INST thunderbird" "thunderbird mail client" "n"
 if [[ $? ]]; then
     install "$INST thunderbird-lightning-gdata" "google calender for thunderbird" "y"
     install "$INST thunderbird-lightning" "calender for thunderbird" "y"
-    install "$INST thunderbird-enigmail" "gpg for thunderbird" "y"
+    install "$INST thunderbird-enigmail" "gpg for thunderbird (sichere ende zu ende verschlüsselung, google gpg)" "y"
 fi
 
 # addblock for firefox
