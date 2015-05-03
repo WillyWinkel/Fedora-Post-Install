@@ -201,9 +201,34 @@ if [[ $RET == 0 ]]; then
     write $INST flash-plugin
 fi
 
+#latex
+install "$INST texlive" "latex. Its good for writing u know?" "y"
+if [[ $? == 0 ]]; then
+    write "$INST texlive-latex"
+    write "$INST texlive-biblatex"
+    write "$INST texlive-scheme-basic"
+    write "$INST texlive-scheme-full"
+    write "$INST texlive-collection-basic"
+    write "$INST texlive-collection-langgerman"
+    write "$INST texlive-collection-langenglish"
+    install "$INST texstduio" "editor for latex files" "y"
+fi
+
+#skype
+install "$INST skype" "skype" "n"
+
+#dropbox
+install "$INST dropbox" "dropbox" "n"
+
+#thunderbird
+install "$INST thunderbird" "thunderbird mail client" "n"
+if [[ $? ]]; then
+    install "$INST thunderbird-lightning-gdata" "google calender for thunderbird" "y"
+    install "$INST thunderbird-lightning" "calender for thunderbird" "y"
+    install "$INST thunderbird-enigmail" "gpg for thunderbird" "y"
+fi
 
 # addblock for firefox
-
 install "wget -O /tmp/adblock.xpi https://addons.mozilla.org/firefox/downloads/latest/1865/addon-1865-latest.xpi" "adblock against Adverts" "y"
 if [[ $? == 0 ]]; then
     write firefox /tmp/adblock.xpi
