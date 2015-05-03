@@ -26,8 +26,8 @@ echo "
     to exit press Ctrl+c or enter 'q' at any quesiton
 "
 
-INST="sudo yum -y install"
-UPDATE="sudo yum -y update"
+INST="yum -y install"
+UPDATE="yum -y update"
 FILE="install.sh"
 
 show_info() {
@@ -106,9 +106,9 @@ install "$INST yum-plugin-fastestmirror" "prog to find mirrors fast" "y"
 
 
 
-install "sudo rpm -ivh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-21.noarch.rpm" "rpm-fusion free (for music and stuff)" "y" 
+install "rpm -ivh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-21.noarch.rpm" "rpm-fusion free (for music and stuff)" "y"
 RPM=$?
-install "sudo rpm -ivh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-21.noarch.rpm" "rpm-fusion nonfree (for music and stuff as well)" "y"
+install "rpm -ivh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-21.noarch.rpm" "rpm-fusion nonfree (for music and stuff as well)" "y"
 
 if [[ $? == 0 || $RPM  == 0 ]]; then
     write $UPDATE
@@ -157,11 +157,11 @@ fi
 if [[ $RET == 0 ]]; then
     cat >> $FILE <<HERE
 tar xf /tmp/subl
-sudo mv sublime_text_3 /opt/
-sudo ln -sf /opt/sublime_text_3/sublime_text /usr/bin/subl
-sudo ln -sf /opt/sublime_text_3/sublime_text /usr/bin/sublime
+mv sublime_text_3 /opt/
+ln -sf /opt/sublime_text_3/sublime_text /usr/bin/subl
+ln -sf /opt/sublime_text_3/sublime_text /usr/bin/sublime
 
-sudo echo "[Desktop Entry]
+echo "[Desktop Entry]
 Version=3
 Name=Sublime Text 3
 GenericName=Text Editor
@@ -176,12 +176,12 @@ X-GNOME-FullName=Sublime Text 3
 Name=New Window
 Exec=sublime -n" >> /usr/share/applications/sublime-text.desktop
 
-sudo cp -r /opt/sublime_text_3/Icon/16x16/* /usr/share/icons/hicolor/16x16/apps
-sudo cp -r /opt/sublime_text_3/Icon/32x32/* /usr/share/icons/hicolor/32x32/apps
-sudo cp -r /opt/sublime_text_3/Icon/48x48/* /usr/share/icons/hicolor/48x48/apps
-sudo cp -r /opt/sublime_text_3/Icon/128x128/* /usr/share/icons/hicolor/128x128/apps
-sudo cp -r /opt/sublime_text_3/Icon/256x256/* /usr/share/icons/hicolor/256x256/apps
-sudo gtk-update-icon-cache /usr/share/icons/hicolor
+cp -r /opt/sublime_text_3/Icon/16x16/* /usr/share/icons/hicolor/16x16/apps
+cp -r /opt/sublime_text_3/Icon/32x32/* /usr/share/icons/hicolor/32x32/apps
+cp -r /opt/sublime_text_3/Icon/48x48/* /usr/share/icons/hicolor/48x48/apps
+cp -r /opt/sublime_text_3/Icon/128x128/* /usr/share/icons/hicolor/128x128/apps
+cp -r /opt/sublime_text_3/Icon/256x256/* /usr/share/icons/hicolor/256x256/apps
+gtk-update-icon-cache /usr/share/icons/hicolor
 
 HERE
 
@@ -189,15 +189,15 @@ fi
 # flash install
 
 if [ $(uname -i) = 'i386' ]; then
-    install "sudo rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-i386-1.0-1.noarch.rpm" "Adobe flash" "y"
+    install "rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-i386-1.0-1.noarch.rpm" "Adobe flash" "y"
     RET=$?
 elif [ $(uname -i) = 'x86_64' ]; then
-    install "sudo rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm" "Adobe flash" "y"
+    install "rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm" "Adobe flash" "y"
     RET=$?
 fi
 
 if [[ $RET == 0 ]]; then
-    write sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
+    write rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
     write $INST flash-plugin
 fi
 

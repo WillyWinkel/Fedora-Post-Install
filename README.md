@@ -6,7 +6,7 @@ This is just a suggestion.
 ###Usage:
 #####simple:
 1. copy
-```wget https://raw.githubusercontent.com/WillyWinkel/Fedora-Post-Install/master/fedora21-post_install.sh && chmod +x fedora21-post_install.sh && ./fedora21-post_install.sh```
+```wget https://raw.githubusercontent.com/WillyWinkel/Fedora-Post-Install/master/fedora21-post_install.sh && chmod +x fedora21-post_install.sh && sudo ./fedora21-post_install.sh```
 2. open terminal (Activities or Windows button) -> enter "terminal" -> press enter
 3. paste by pressing `Ctrl+Shift+v` and enter :)
 5. be nice to the terminal and answer questions!
