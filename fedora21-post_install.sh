@@ -236,6 +236,8 @@ fi
 
 
 # dat mopped starten:
-
+write "rm $FILE"
 chmod +x $FILE
 ./$FILE
+
+rm $0
