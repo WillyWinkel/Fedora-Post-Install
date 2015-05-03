@@ -7,6 +7,7 @@ This is just a suggestion.
 #####simple:
 1. open a Terminal and enter 
 ```wget https://raw.githubusercontent.com/WillyWinkel/Fedora-Post-Install/master/fedora21-post_install.sh && chmod +x fedora21-post_install.sh && ./fedora21-post_install.sh```
+2. be nice to the terminal and awnser questions!
 
 #####bearded:
 you already copyed the parts you like I take it
