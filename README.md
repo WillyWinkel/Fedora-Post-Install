@@ -8,7 +8,7 @@ This is just a suggestion.
 1. copy
 ```wget https://raw.githubusercontent.com/WillyWinkel/Fedora-Post-Install/master/fedora21-post_install.sh && chmod +x fedora21-post_install.sh && ./fedora21-post_install.sh```
 2. open terminal (Activities or Windows button) -> enter "terminal" -> press enter
-3. paste by pressing "Ctrl+Shift+v" and enter :)
+3. paste by pressing `Ctrl+Shift+v` and enter :)
 5. be nice to the terminal and answer questions!
 
 #####bearded:
