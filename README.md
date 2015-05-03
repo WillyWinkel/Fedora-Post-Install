@@ -1,13 +1,20 @@
-# Fedora Post-Install-Script
+# Yet another Fedora post install script (Yafpis)
 Collection of commands that might get usefull in a fresh fedora installation.
 
 This is just a suggestion.
 
 ###Supports:
-- adblock for firefox
+- [adblock](https://addons.mozilla.org/de/firefox/addon/adblock-plus/) for firefox
 - media codecs
-- vlc player
+- [vlc player](http://www.videolan.org/vlc/)
 - cdparanoia for ripping cd's
+- latex and [texstudio](http://texstudio.sourceforge.net/)
+- [sublime text 3](http://www.sublimetext.com/)
+- [adobe flash](https://get.adobe.com/flashplayer/?loc=de)
+- [zsh](http://www.zsh.org/) terminal and [grml](https://grml.org/zsh/) config
+- skype
+- dropbox
+- thunderbird
 
 ###Usage:
 #####simple:

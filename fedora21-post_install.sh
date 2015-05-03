@@ -121,13 +121,13 @@ install "$INST vlc" "vlc" "Y"
 install "$INST unrar unzip" "zip-progs" "y"
 
 # Install Grip - CD-ripper with database lookup/submission to share track information over the net, supports OGG and FLAC and adding ID3v1/v2 to MP3s.
-install "$INST grip cdparanoia" ""
+install "$INST grip cdparanoia" "ripping progs" "y"
 
 # GStreamer non-free plugins
-install "$INST phonon-backend-gstreamer gstreamer-plugins-base gstreamer1-libav gstreamer1-plugins-base-tools gstreamer{1,}-{plugin-crystalhd,ffmpeg,plugins-{base,good,ugly,bad{,-free,-nonfree,-freeworld,-extras}}} libmpg123 lame-libs" "gstreamer" "y"
+install "$INST phonon-backend-gstreamer gstreamer-plugins-base gstreamer1-libav gstreamer1-plugins-base-tools gstreamer{1,}-{plugin-crystalhd,ffmpeg,plugins-{base,good,ugly,bad{,-free,-nonfree,-freeworld,-extras}}} libmpg123 lame-libs" "gstreamer, for watching movies and hearing music" "y"
 
 # FFMpeg
-install "$INST ffmpeg ffmpeg-libs" "ffmpeg"
+install "$INST ffmpeg ffmpeg-libs" "ffmpeg" "y"
 
 # DVD playback
 install "$INST libdvdread libdvdnav lsdvd libdvdcss" "codecs for DVD" "y"
