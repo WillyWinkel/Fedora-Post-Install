@@ -3,6 +3,14 @@ Collection of commands that might get usefull in a fresh fedora installation.
 
 This is just a suggestion.
 
+###Usage:
+#####simple:
+1. open a Terminal and enter 
+```wget https://raw.githubusercontent.com/WillyWinkel/Fedora-Post-Install/master/fedora21-post_install.sh && chmod +x fedora21-post_install.sh && ./fedora21-post_install.sh```
+
+#####bearded:
+you already copyed the parts you like I take it
+
 ###Supports:
 - [adblock](https://addons.mozilla.org/de/firefox/addon/adblock-plus/) for firefox
 - media codecs
@@ -15,14 +23,6 @@ This is just a suggestion.
 - skype
 - dropbox
 - thunderbird
-
-###Usage:
-#####simple:
-1. open a Terminal and enter 
-```wget https://raw.githubusercontent.com/WillyWinkel/Fedora-Post-Install/master/fedora21-post_install.sh && chmod +x fedora21-post_install.sh && ./fedora21-post_install.sh```
-
-#####bearded:
-you already copyed the parts you like I take it
 
 ###Sources:
 - https://ask.fedoraproject.org/en/question/9111/sticky-what-plugins-do-i-need-to-install-to-watch-movies-and-listen-to-music/
