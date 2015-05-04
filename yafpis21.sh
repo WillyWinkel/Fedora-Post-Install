@@ -101,7 +101,8 @@ install() {
                         install "$1" "$2" "$3"
                     fi;;
 
-        "q")        exit 0;;
+        "q")        rm $FILE
+                    exit 0;;
 
         *)          echo "try again: "
                     install "$1" "$2" "$3" "$4";;
@@ -273,7 +274,8 @@ instYum qbittorrent "qbittorrent client" n
 instYum steam "Steam for Linux :)" n
 
 instYum "nodejs rubygem-compass" "Popcorn Streaming cinnema" n
-if [[$? == 0 ]]; then
+
+if [[ $? == 0 ]]; then
     if [ $(uname -i) = 'i386' ]; then
         write "rpm -ivh ftp://ftp.pbone.net/mirror/ftp.sourceforge.net/pub/sourceforge/p/po/postinstaller/fedora/releases/21/i386/popcorntime-0.3.5.2-1.fc21.i686.rpm"
     elif [ $(uname -i) = 'x86_64' ]; then
