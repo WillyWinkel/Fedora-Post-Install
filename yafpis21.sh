@@ -256,6 +256,29 @@ if [[ $? == 0 ]]; then
     instYum "thunderbird-enigmail" "gpg for thunderbird (sichere ende zu ende verschlüsselung, google gpg)" "y"
 fi
 
+
+instYum gnome-tweak-tool "advanced configuration for gnome" y
+instYum yumex "yum extender" n
+instYum @mate-desktop "Mate Desktop" n
+instYum @kde-desktop "KDE Desktop" n
+instYum @xfce-desktop "XFCE Desktop" n
+instYum @lxde-desktop "lxde Desktop" n
+instYum @cinnamon-desktop "Cinnamon Desktop" n
+instYum VirtualBox "VirtualBox" n
+instYum gnome-music "Gnome Music Player" n
+instYum qbittorrent "qbittorrent client" n
+instYum steam "Steam for Linux :)" n
+
+instYum "nodejs rubygem-compass" "Popcorn Streaming cinnema" n
+if [[$? == 0 ]]; then
+    if [ $(uname -i) = 'i386' ]; then
+        write "rpm -ivh ftp://ftp.pbone.net/mirror/ftp.sourceforge.net/pub/sourceforge/p/po/postinstaller/fedora/releases/21/i386/popcorntime-0.3.5.2-1.fc21.i686.rpm"
+    elif [ $(uname -i) = 'x86_64' ]; then
+        write "rpm -ivh ftp://ftp.pbone.net/mirror/ftp.sourceforge.net/pub/sourceforge/p/po/postinstaller/fedora/releases/21/x86_64/popcorntime-0.3.5.2-1.fc21.x86_64.rpm"
+    fi
+fi
+
+
 # addblock for firefox
 instOther "wget -O /tmp/adblock.xpi https://addons.mozilla.org/firefox/downloads/latest/1865/addon-1865-latest.xpi" "adblock against Adverts" "y"
 if [[ $? == 0 ]]; then

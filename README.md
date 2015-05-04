@@ -26,6 +26,13 @@ you already copyed the parts you like I take it
 - skype
 - dropbox
 - thunderbird
+- gnome-tweak-tool
+- Desktops ([Mate](http://mate-desktop.org/de/), [KDE](https://de.kde.org/), [XFCE](http://www.xfce.org/), [lxde](http://lxde.org/), [cinnamon](http://cinnamon.linuxmint.com/))
+- VirtualBox
+- [Gnome Music Player](https://wiki.gnome.org/Apps/Music)
+- [qbittorrent](http://www.qbittorrent.org/)
+- Steam
+- [Popcorn](https://popcorntime.io/) 
 
 ###Sources:
 - https://ask.fedoraproject.org/en/question/9111/sticky-what-plugins-do-i-need-to-install-to-watch-movies-and-listen-to-music/
