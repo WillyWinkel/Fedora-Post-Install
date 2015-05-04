@@ -97,6 +97,7 @@ if [[ -e install.sh ]]; then
         *) "ja is klar ..."
             exit 123;;
     esac
+    chmod 744 $FILE     # security
 fi
 
 # Update the packages first and install the GPG keys
@@ -222,7 +223,7 @@ install "$INST dropbox" "dropbox" "n"
 
 #thunderbird
 install "$INST thunderbird" "thunderbird mail client" "n"
-if [[ $? ]]; then
+if [[ $? == 0 ]]; then
     install "$INST thunderbird-lightning-gdata" "google calender for thunderbird" "y"
     install "$INST thunderbird-lightning" "calender for thunderbird" "y"
     install "$INST thunderbird-enigmail" "gpg for thunderbird (sichere ende zu ende verschlüsselung, google gpg)" "y"
