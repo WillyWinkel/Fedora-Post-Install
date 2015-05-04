@@ -92,7 +92,10 @@ install() {
                             echo $2 >> $FILE
                         else
                             exit 33
-                        fi 
+                        fi
+                        return 0
+                    elif [[ $4 == "n" || $4 == "N" ]]; then
+                        return 1
                     elif [[ -z $4 ]]; then
                         echo "try again: "
                         install "$1" "$2" "$3"
