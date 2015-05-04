@@ -35,6 +35,11 @@ you already copyed the parts you like I take it
 - http://www.tecmint.com/things-to-do-after-installing-fedora-21-workstation/
 - https://github.com/snwh/fedora-post-install
 
+###Why another post install script?
+Well this one is just it.
+Some were to long, some not enough, some nicly split up over 3 folders so I lost interessed in reading them.
+This one is easy to extend I would say, all in one File, and it asks you nicely bout stuff ;)
+
 ###License:
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
