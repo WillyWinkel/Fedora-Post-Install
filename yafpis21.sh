@@ -42,50 +42,73 @@ write() {
     echo $@ >> $FILE
 }
 
-# this function asks you nicely if you want to install the stuff and installs it then anyway
-install() { # first is programm second is description third recommend
+# This function is a wrapper to yum
+# arguments: prog description suggestion<-(y/n)
+# e.g.: you want to install pidgin: instYum pidgin "messenger for jabber" y
+instYum() { 
+    install yum "$1" "$2" "$3" "$4"
+}
 
-    if [[ -z $2 ]]; then
-        DES=$1
-    else 
+instOther() {
+    install other "$1" "$2" "$3" "$4"
+}
+
+# this is the hidden install function
+# just use the wrapper
+# it might look horrible but this is just bash.
+install() { 
+
+    if [[ -z $3 ]]; then
         DES=$2
+    else 
+        DES=$3
     fi
     
-    if [[ $3 == "y" || $3 == "Y" ]]; then
+    if [[ $4 == "y" || $4 == "Y" ]]; then
         show_info "Install" $DES"? (Y/n)"
-    elif [[ $3 == "n" || $3 == "N" ]]; then
+    elif [[ $4 == "n" || $4 == "N" ]]; then
         show_info "Install" $DES"? (y/N)"
-    elif [[ -z $3 ]]; then
+    elif [[ -z $4 ]]; then
         show_info "Install" $DES"? (y/n)"
     fi
     
-    
     read REPLY
     case $REPLY in
-        [Yy]*)      echo $1 >> $FILE
+        [Yy]*)      if [[ $1 == "yum" ]]; then
+                        echo $INST $2 >> $FILE
+                    elif [[ $1 == "other" ]]; then
+                        echo $2 >> $FILE
+                    else
+                        exit 33
+                    fi 
                     return 0;;
 
         [Nn]*)      return 1;;
 
-        "")         if [[ $3 == "y" || $3 == "Y" ]]; then
-                        echo $1 >> $FILE
-                    elif [[ -z $3 ]]; then
+        "")         if [[ $4 == "y" || $4 == "Y" ]]; then
+                        if [[ $1 == "yum" ]]; then
+                            echo $INST $2 >> $FILE
+                        elif [[ $1 == "other" ]]; then
+                            echo $2 >> $FILE
+                        else
+                            exit 33
+                        fi 
+                    elif [[ -z $4 ]]; then
                         echo "try again: "
-                        install "$1" "$2"
+                        install "$1" "$2" "$3"
                     fi;;
 
         "q")        exit 0;;
 
         *)          echo "try again: "
-                    install "$1" "$2" "$3";;
+                    install "$1" "$2" "$3" "$4";;
     esac
 
     
 }
 
 
-write 
-
+# checks if there is already an install.sh file
 if [[ -e install.sh ]]; then
     show_error "Ein install.sh file ist bereits da. Neues file, überschreiben, ende? (n,u,e)"
     read REPLY
@@ -100,16 +123,20 @@ if [[ -e install.sh ]]; then
     chmod 744 $FILE     # security
 fi
 
+#       ----------------------------
+#
+#       From here on starts the fun.
+#
+#       ---------------------------
+
 # Update the packages first and install the GPG keys
 write $UPDATE
 
-install "$INST yum-plugin-fastestmirror" "prog to find mirrors fast" "y"
+instYum yum-plugin-fastestmirror "prog to find mirrors fast" y
 
-
-
-install "rpm -ivh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-21.noarch.rpm" "rpm-fusion free (for music and stuff)" "y"
+instOther "rpm -ivh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-21.noarch.rpm" "rpm-fusion free (for music and stuff)" "y"
 RPM=$?
-install "rpm -ivh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-21.noarch.rpm" "rpm-fusion nonfree (for music and stuff as well)" "y"
+instOther "rpm -ivh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-21.noarch.rpm" "rpm-fusion nonfree (for music and stuff as well)" "y"
 
 if [[ $? == 0 || $RPM  == 0 ]]; then
     write $UPDATE
@@ -117,27 +144,27 @@ fi
 
 
 # Install VLC - for watching videos without worrying about the file formats
-install "$INST vlc" "vlc" "Y"
+instYum vlc "vlc" Y
 # Install Unrar - for extracting RAR file archives
-install "$INST unrar unzip" "zip-progs" "y"
+instYum "unrar unzip" "zip-progs" "y"
 
 # Install Grip - CD-ripper with database lookup/submission to share track information over the net, supports OGG and FLAC and adding ID3v1/v2 to MP3s.
-install "$INST grip cdparanoia" "ripping progs" "y"
+instYum "grip cdparanoia" "ripping progs" "y"
 
 # GStreamer non-free plugins
-install "$INST phonon-backend-gstreamer gstreamer-plugins-base gstreamer1-libav gstreamer1-plugins-base-tools gstreamer{1,}-{plugin-crystalhd,ffmpeg,plugins-{base,good,ugly,bad{,-free,-nonfree,-freeworld,-extras}}} libmpg123 lame-libs" "gstreamer, for watching movies and hearing music" "y"
+instYum "phonon-backend-gstreamer gstreamer-plugins-base gstreamer1-libav gstreamer1-plugins-base-tools gstreamer{1,}-{plugin-crystalhd,ffmpeg,plugins-{base,good,ugly,bad{,-free,-nonfree,-freeworld,-extras}}} libmpg123 lame-libs" "gstreamer, for watching movies and hearing music" "y"
 
 # FFMpeg
-install "$INST ffmpeg ffmpeg-libs" "ffmpeg (converting media files)" "y"
+instYum "ffmpeg ffmpeg-libs" "ffmpeg (converting media files)" "y"
 
 # DVD playback
-install "$INST libdvdread libdvdnav lsdvd libdvdcss" "codecs for DVD" "y"
+instYum "libdvdread libdvdnav lsdvd libdvdcss" "codecs for DVD" "y"
 
 #zsh shell and grml config (which is kinda nice)
-install "$INST zsh" "zsh (terminal) and grml config (cool)" "y"
+instYum "zsh" "zsh (terminal) and grml config (cool)" "y"
 
 if [[ $? == 0 ]]; then
-    cat >> $FILE <<HERE
+cat >> $FILE <<HERE
 chsh -s /usr/bin/zsh $USERNAME
 wget -O ~/.zshrc http://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
 wget -O ~/.zshrc.local  http://git.grml.org/f/grml-etc-core/etc/skel/.zshrc
@@ -147,16 +174,16 @@ fi
 
 # flash and sublime download
 if [ $(uname -i) = 'i386' ]; then
-    install "wget -O /tmp/subl http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3083.tar.bz2" "Sublime Text Editor 3" "y"
+    instOther "wget -O /tmp/subl http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3083.tar.bz2" "Sublime Text Editor 3" "y"
     RET=$?
 elif [ $(uname -i) = 'x86_64' ]; then
-    install "wget -O /tmp/subl http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3083_x64.tar.bz2" "Sublime Text Editor 3" "y"
+    instOther "wget -O /tmp/subl http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3083_x64.tar.bz2" "Sublime Text Editor 3" "y"
     RET=$?
 fi
 
 # sublime install
 if [[ $RET == 0 ]]; then
-    cat >> $FILE <<HERE
+cat >> $FILE <<HERE
 tar xf /tmp/subl
 mv sublime_text_3 /opt/
 ln -sf /opt/sublime_text_3/sublime_text /usr/bin/subl
@@ -190,10 +217,10 @@ fi
 # flash install
 
 if [ $(uname -i) = 'i386' ]; then
-    install "rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-i386-1.0-1.noarch.rpm" "Adobe flash" "y"
+    instOther "rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-i386-1.0-1.noarch.rpm" "Adobe flash" "y"
     RET=$?
 elif [ $(uname -i) = 'x86_64' ]; then
-    install "rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm" "Adobe flash" "y"
+    instOther "rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm" "Adobe flash" "y"
     RET=$?
 fi
 
@@ -203,7 +230,7 @@ if [[ $RET == 0 ]]; then
 fi
 
 #latex
-install "$INST texlive" "latex. Its good for writing u know?" "y"
+instYum "texlive" "latex. Its good for writing u know?" "y"
 if [[ $? == 0 ]]; then
     write "$INST texlive-latex"
     write "$INST texlive-biblatex"
@@ -212,25 +239,25 @@ if [[ $? == 0 ]]; then
     write "$INST texlive-collection-basic"
     write "$INST texlive-collection-langgerman"
     write "$INST texlive-collection-langenglish"
-    install "$INST texstduio" "editor for latex files" "y"
+    instYum "texstduio" "editor for latex files" "y"
 fi
 
 #skype
-install "$INST skype" "skype" "n"
+instYum "skype" "skype" "n"
 
 #dropbox
-install "$INST dropbox" "dropbox" "n"
+instYum "dropbox" "dropbox" "n"
 
 #thunderbird
-install "$INST thunderbird" "thunderbird mail client" "n"
+instYum "thunderbird" "thunderbird mail client" "n"
 if [[ $? == 0 ]]; then
-    install "$INST thunderbird-lightning-gdata" "google calender for thunderbird" "y"
-    install "$INST thunderbird-lightning" "calender for thunderbird" "y"
-    install "$INST thunderbird-enigmail" "gpg for thunderbird (sichere ende zu ende verschlüsselung, google gpg)" "y"
+    instYum "thunderbird-lightning-gdata" "google calender for thunderbird" "y"
+    instYum "thunderbird-lightning" "calender for thunderbird" "y"
+    instYum "thunderbird-enigmail" "gpg for thunderbird (sichere ende zu ende verschlüsselung, google gpg)" "y"
 fi
 
 # addblock for firefox
-install "wget -O /tmp/adblock.xpi https://addons.mozilla.org/firefox/downloads/latest/1865/addon-1865-latest.xpi" "adblock against Adverts" "y"
+instOther "wget -O /tmp/adblock.xpi https://addons.mozilla.org/firefox/downloads/latest/1865/addon-1865-latest.xpi" "adblock against Adverts" "y"
 if [[ $? == 0 ]]; then
     write firefox /tmp/adblock.xpi
 fi
