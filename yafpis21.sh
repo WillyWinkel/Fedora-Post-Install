@@ -26,8 +26,8 @@ echo "
     to exit press Ctrl+c or enter 'q' at any quesiton
 "
 
-INST="yum -y install"
-UPDATE="yum -y update"
+INST="dnf -y install"
+UPDATE="dnf -y update"
 FILE="install.sh"
 
 show_info() {
@@ -42,11 +42,11 @@ write() {
     echo $@ >> $FILE
 }
 
-# This function is a wrapper to yum
+# This function is a wrapper to dnf
 # arguments: prog description suggestion<-(y/n)
 # e.g.: you want to install pidgin: instYum pidgin "messenger for jabber" y
 instYum() { 
-    install yum "$1" "$2" "$3" "$4"
+    install dnf "$1" "$2" "$3" "$4"
 }
 
 instOther() {
@@ -74,7 +74,7 @@ install() {
     
     read REPLY
     case $REPLY in
-        [Yy]*)      if [[ $1 == "yum" ]]; then
+        [Yy]*)      if [[ $1 == "dnf" ]]; then
                         echo $INST $2 >> $FILE
                     elif [[ $1 == "other" ]]; then
                         echo $2 >> $FILE
@@ -86,7 +86,7 @@ install() {
         [Nn]*)      return 1;;
 
         "")         if [[ $4 == "y" || $4 == "Y" ]]; then
-                        if [[ $1 == "yum" ]]; then
+                        if [[ $1 == "dnf" ]]; then
                             echo $INST $2 >> $FILE
                         elif [[ $1 == "other" ]]; then
                             echo $2 >> $FILE
@@ -136,7 +136,7 @@ fi
 # Update the packages first and install the GPG keys
 write $UPDATE
 
-instYum yum-plugin-fastestmirror "prog to find mirrors fast" y
+# instYum yum-plugin-fastestmirror "prog to find mirrors fast" y # questionable
 
 instOther "rpm -ivh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-21.noarch.rpm" "rpm-fusion free (for music and stuff)" "y"
 RPM=$?
@@ -262,7 +262,6 @@ fi
 
 
 instYum gnome-tweak-tool "advanced configuration for gnome" y
-instYum yumex "yum extender" n
 instYum @mate-desktop "Mate Desktop" n
 instYum @kde-desktop "KDE Desktop" n
 instYum @xfce-desktop "XFCE Desktop" n
