@@ -138,9 +138,9 @@ write $UPDATE
 
 # instYum yum-plugin-fastestmirror "prog to find mirrors fast" y # questionable
 
-instOther "rpm -ivh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-21.noarch.rpm" "rpm-fusion free (for music and stuff)" "y"
+instOther "rpm -ivh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-22.noarch.rpm" "rpm-fusion free (for music and stuff)" "y"
 RPM=$?
-instOther "rpm -ivh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-21.noarch.rpm" "rpm-fusion nonfree (for music and stuff as well)" "y"
+instOther "rpm -ivh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-22.noarch.rpm" "rpm-fusion nonfree (for music and stuff as well)" "y"
 
 if [[ $? == 0 || $RPM  == 0 ]]; then
     write $UPDATE
